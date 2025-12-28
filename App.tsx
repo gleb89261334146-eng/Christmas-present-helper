@@ -12,7 +12,14 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState<RecommendationResponse | null>(null);
   const [formData, setFormData] = useState<GiftRequest>({
-    recipientName: '', age: '', gender: 'Другой', personality: [], interests: [], occasion: 'Новый год', budget: '', additionalInfo: ''
+    recipientName: '', 
+    age: '', 
+    gender: 'Другой', 
+    personality: [], 
+    interests: [], 
+    occasion: 'Новый год', 
+    budget: '', 
+    additionalInfo: ''
   });
 
   const handleSubmit = useCallback(async () => {
@@ -22,7 +29,10 @@ const App: React.FC = () => {
     try {
       const recs = await getGiftRecommendations(formData);
       setResults(recs);
-    } catch (e) { alert("Ошибка выпекания подарков. Попробуйте еще раз."); }
+    } catch (e) { 
+      console.error(e);
+      alert("Ошибка выпекания подарков. Проверьте консоль браузера."); 
+    }
     finally { setIsLoading(false); }
   }, [formData]);
 

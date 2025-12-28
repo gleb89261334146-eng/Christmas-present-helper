@@ -3,7 +3,14 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { GiftRequest, RecommendationResponse } from "../types";
 
 export const getGiftRecommendations = async (request: GiftRequest): Promise<RecommendationResponse> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  // Получаем ключ безопасно, чтобы не уронить приложение, если переменная не определена в браузере
+  const apiKey = typeof process !== 'undefined' ? process.env.API_KEY : '';
+  
+  if (!apiKey) {
+    throw new Error("API KEY не найден. Пожалуйста, убедитесь, что ключ настроен.");
+  }
+
+  const ai = new GoogleGenAI({ apiKey });
   
   const prompt = `
     Предложи 5 идеальных идей подарков для следующего человека (отвечай ТОЛЬКО на русском языке):
@@ -52,5 +59,6 @@ export const getGiftRecommendations = async (request: GiftRequest): Promise<Reco
     }
   });
 
-  return JSON.parse(response.text) as RecommendationResponse;
+  const text = response.text || "{}";
+  return JSON.parse(text) as RecommendationResponse;
 };
