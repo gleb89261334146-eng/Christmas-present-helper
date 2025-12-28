@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { FormStep, GiftRequest } from '../types';
+import { FormStep, GiftRequest } from '../types.ts';
 
 interface FormWizardProps {
   step: FormStep;

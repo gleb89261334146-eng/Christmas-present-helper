@@ -1,11 +1,11 @@
 
 import React, { useState, useCallback } from 'react';
-import { GiftRequest, RecommendationResponse, FormStep } from './types';
-import { getGiftRecommendations } from './services/geminiService';
-import Header from './components/Header';
-import FormWizard from './components/FormWizard';
-import ResultsDisplay from './components/ResultsDisplay';
-import LoadingState from './components/LoadingState';
+import { GiftRequest, RecommendationResponse, FormStep } from './types.ts';
+import { getGiftRecommendations } from './services/geminiService.ts';
+import Header from './components/Header.tsx';
+import FormWizard from './components/FormWizard.tsx';
+import ResultsDisplay from './components/ResultsDisplay.tsx';
+import LoadingState from './components/LoadingState.tsx';
 
 const App: React.FC = () => {
   const [step, setStep] = useState<FormStep>(FormStep.Identity);
@@ -31,7 +31,7 @@ const App: React.FC = () => {
       setResults(recs);
     } catch (e) { 
       console.error(e);
-      alert("Ошибка выпекания подарков. Проверьте консоль браузера."); 
+      alert("Ошибка при получении рекомендаций. Попробуйте еще раз."); 
     }
     finally { setIsLoading(false); }
   }, [formData]);

@@ -1,13 +1,13 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
-import { GiftRequest, RecommendationResponse } from "../types";
+import { GiftRequest, RecommendationResponse } from "../types.ts";
 
 export const getGiftRecommendations = async (request: GiftRequest): Promise<RecommendationResponse> => {
-  // Получаем ключ безопасно, чтобы не уронить приложение, если переменная не определена в браузере
-  const apiKey = typeof process !== 'undefined' ? process.env.API_KEY : '';
+  // Безопасное получение ключа для браузера
+  const apiKey = typeof process !== 'undefined' && process.env ? process.env.API_KEY : '';
   
   if (!apiKey) {
-    throw new Error("API KEY не найден. Пожалуйста, убедитесь, что ключ настроен.");
+    throw new Error("API KEY is missing. Please ensure it is set correctly in the environment.");
   }
 
   const ai = new GoogleGenAI({ apiKey });
@@ -52,13 +52,12 @@ export const getGiftRecommendations = async (request: GiftRequest): Promise<Reco
               required: ["id", "title", "description", "estimatedPrice", "whyItFits", "category", "tags"]
             }
           },
-          summary: { type: Type.STRING, description: "Краткое экспертное резюме того, почему эти подарки были выбраны." }
+          summary: { type: Type.STRING }
         },
         required: ["recommendations", "summary"]
       }
     }
   });
 
-  const text = response.text || "{}";
-  return JSON.parse(text) as RecommendationResponse;
+  return JSON.parse(response.text || "{}") as RecommendationResponse;
 };

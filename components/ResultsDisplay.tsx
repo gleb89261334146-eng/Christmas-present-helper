@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { RecommendationResponse, GiftRecommendation } from '../types';
+import { RecommendationResponse, GiftRecommendation } from '../types.ts';
 
 interface ResultsDisplayProps {
   results: RecommendationResponse;
@@ -42,12 +42,10 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results, onReset, recip
 
 const GiftCard: React.FC<{ gift: GiftRecommendation; index: number }> = ({ gift, index }) => (
   <div className="group relative bg-[#7d4f39] candy-dots rounded-[3.5rem] p-8 md:p-12 border-[10px] border-[#fdf5e6] shadow-2xl animate-slideUp transition-all hover:-translate-y-3">
-    {/* Хаотичные крупные леденцы на карточке */}
     <div className="big-candy bg-[#c41e3a] w-4 h-4 top-[8%] right-[5%]"></div>
     <div className="big-candy bg-[#145a32] w-5 h-5 bottom-[12%] left-[4%]"></div>
     <div className="big-candy bg-[#facc15] w-3 h-3 top-[40%] left-[2%] opacity-60"></div>
     
-    {/* Рождественские иконки в углах */}
     <div className="absolute top-4 left-4 opacity-10 pointer-events-none">
        <svg width="30" height="30" viewBox="0 0 24 24" fill="#fdf5e6">
          <path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z" />
