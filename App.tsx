@@ -1,11 +1,11 @@
 
 import React, { useState, useCallback } from 'react';
-import { GiftRequest, RecommendationResponse, FormStep } from './types.ts';
-import { getGiftRecommendations } from './services/geminiService.ts';
-import Header from './components/Header.tsx';
-import FormWizard from './components/FormWizard.tsx';
-import ResultsDisplay from './components/ResultsDisplay.tsx';
-import LoadingState from './components/LoadingState.tsx';
+import { GiftRequest, RecommendationResponse, FormStep } from './types';
+import { getGiftRecommendations } from './services/geminiService';
+import Header from './components/Header';
+import FormWizard from './components/FormWizard';
+import ResultsDisplay from './components/ResultsDisplay';
+import LoadingState from './components/LoadingState';
 
 const App: React.FC = () => {
   const [step, setStep] = useState<FormStep>(FormStep.Identity);

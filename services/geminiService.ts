@@ -1,16 +1,9 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
-import { GiftRequest, RecommendationResponse } from "../types.ts";
+import { GiftRequest, RecommendationResponse } from "../types";
 
 export const getGiftRecommendations = async (request: GiftRequest): Promise<RecommendationResponse> => {
-  // Безопасное получение ключа для браузера
-  const apiKey = typeof process !== 'undefined' && process.env ? process.env.API_KEY : '';
-  
-  if (!apiKey) {
-    throw new Error("API KEY is missing. Please ensure it is set correctly in the environment.");
-  }
-
-  const ai = new GoogleGenAI({ apiKey });
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
   const prompt = `
     Предложи 5 идеальных идей подарков для следующего человека (отвечай ТОЛЬКО на русском языке):
@@ -24,7 +17,7 @@ export const getGiftRecommendations = async (request: GiftRequest): Promise<Reco
     Дополнительная информация: ${request.additionalInfo}
 
     Рекомендации должны быть разнообразными, креативными и точно соответствовать деталям.
-    Поле "whyItFits" должно объяснять психологическую связь между подарком и личностью/интересами человека.
+    Поле "whyItFits" должно объяснять связь между подарком и личностью/интересами.
     Весь текст должен быть на русском языке.
   `;
 
